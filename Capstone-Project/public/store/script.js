@@ -27,14 +27,29 @@ async function update() {
   }
 }
 
-
-
 async function addToCart(id) {
   console.log(id);
   try {
-    const { product } = await axios.post(url2, {id});
-    console.log(product);
+    const { item } = await axios.post(url2, {id});
+    // console.log(item);
   } catch (error) {
     console.log(error);
   }
 }
+
+// async function addToCart(id) {
+//   console.log(id);
+//   try {
+//     const {
+//       data: {
+//         products
+//       },
+//     } = await axios.post(`${url}/cart`)
+//   } catch (error) {
+//     console.log(error);
+//   }
+// }
+
+
+
+update()

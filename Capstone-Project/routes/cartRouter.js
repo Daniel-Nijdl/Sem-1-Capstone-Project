@@ -2,13 +2,12 @@ const express = require("express");
 const router = express.Router();
 
 const {
-  getAllItems
-  // editQuantity,
-  // checkout,
+  // createCart,
+  getCart,
 } = require("../controllers/cartCon");
 
 
-// router.route("/").get(getAllItems)
-// router.route("/cart/:id").put(editQuantity);
+// router.route("/").post(createCart)
+router.route("/:id").get(getCart);
 
 module.exports = router;

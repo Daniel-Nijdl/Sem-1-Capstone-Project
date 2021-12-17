@@ -1,5 +1,4 @@
 const Prod = require("../models/Product");
-const CartItem = require("../models/CartItem")
 const { StatusCodes } = require("http-status-codes");
 const { BadRequest, NotFound } = require("../errors");
 const path = require("path");
@@ -11,35 +10,35 @@ const getAllProducts = async (req, res) => {
 };
 
 
-const addToCart = async (req, res, id) => {
-
-  const{name, price, image, id} = req.body
-  // const prod = await Prod.create(req.body);
-  const item = await CartItem.create({ name, price, image })
-
-  // document.createElement("")
-  res.json({ item });
-};
-
-// const getProduct = async (req, res) => {
-//   const { id: prodID } = req.params;
-
-//   const prod = await Prod.findOne({
-//     _id: prodID
-//   })
-
-//   console.log(prod);
-// }
-
-
 // const addToCart = async (req, res) => {
-//   const {name, price, image, id} = req.body
+
+//   const{name, price, image, id} = req.body
 //   // const prod = await Prod.create(req.body);
-//   const cartItem = await Cart.create({ name, price, image })
+//   const item = await CartItem.create({ name, price, image })
 
 //   // document.createElement("")
-//   res.json({ prod });
+//   res.json({ item });
 // };
+
+const getProduct = async (req, res) => {
+  const { id } = req.params;
+  const product = await Prod.findById({ _id: id });
+
+  console.log(product);
+  res.json({ product })
+}
+
+
+const addToCart = async (req, res) => {
+  const {id} = req.body
+  const item = Product.findById(id)
+  const {name, price, image} = item
+  // const prod = await Prod.create(req.body);
+    // const cartItem = await Cart.create({item: { $push: { name, price, image}}})
+  const cartItem = await Cart.create({ name, price, image})
+
+  res.json({ item: cartItem });
+};
 
 // const getComp = async (req, res) => {
 //   const { userID } = req.user;
@@ -82,4 +81,4 @@ const addToCart = async (req, res, id) => {
 // getProduct,
 // addToCart,
 
-module.exports = { getAllProducts, addToCart };
+module.exports = { getAllProducts, getProduct, addToCart };

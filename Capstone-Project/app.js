@@ -19,11 +19,10 @@ const stripeController = require("./controllers/stripeCon");
 //TODO const css = require("xss-clean");
 
 //Routes
-// const productRouter = require("./routes/addProducts");
-//TODO const cartRouter = require("./routes/store");
 //TODO const purchaseRouter = require("./routes/purchase");
 const uploadRouter = require("./routes/uploadRouter");
 const productsRouter = require("./routes/productsRouter")
+const cartRouter = require("./routes/cartRouter")
 
 //Middleware
 //TODO const notFoundMiddleware = require("./middleware/not-found")
@@ -71,14 +70,19 @@ app
   })
 
   // .use("/api/docs", swaggerUI.serve, swaggerUI.setup(swaggerDocs))
+
+  //? Static Pages
   .use("/cart", express.static("./public/cart"))
-  .post("/stripe", stripeController)
   .use("/purchase", express.static("./public/purchase"))
   .use("/create", express.static("./public/addProducts"))
-  .use('/api/v1/products/uploads', uploadRouter)
-  // .use("/api/v1/cart/upload", productsRouter)
+
+  //? Router Pages
   .use('/api/v1/products', productsRouter)
-  // .use('/api/v1/cart', cartRouter)
+  .use('/api/v1/cart', cartRouter)
+  .use('/api/v1/products/uploads', uploadRouter)
+  .post("/stripe", stripeController)
+
+
 // .use(notFoundMiddleware)
 // .use(errorHandlerMiddleware)
 
